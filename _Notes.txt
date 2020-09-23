@@ -1,0 +1,51 @@
+When you use this template, there is just a few things you must do to
+make it work with another table.
+
+A) A reference must be made to the correct DAO object library depending
+   on the type of Access database you use.
+
+
+B) First, you must go in the form's declaration section and change the
+   constant mcstrDBName to set it to your database name.
+   
+   Second, you must change the constant mcstrSQL to set it to your
+   SQL string.
+   
+	 Example:
+	 --------
+	 ' The db the form will use.
+	 Private Const mcstrDBName As String = "\DB.mdb"
+		
+	 ' The SQL the form will use.
+	 Private Const mcstrSQL = "SELECT tblClans.CL_ID, tblClans.CL_Name, " & _
+		                        "tblClans.CL_Year, tblClans.CL_Note " & _
+		                        "FROM tblClans;"
+
+
+C) For each field in the table that you want to diplay in the form, you must
+   create a text control on the form and put the folowing in the tag property
+   of the control (separated by ;)
+
+   IsField        ' Insert the text "Field" to indicate it's a field anything
+	                ' else won't be considered as a field. Usefull if we want to
+	                ' use the tag property for other controls.
+	 FieldName      ' The name of the field in the table
+	 FieldValue     ' The value that will be saved in FieldName
+	 FieldType      ' The type of field Alpha or Num
+	 FieldDup       ' Are dups allowed (AllowDup) or no (NoDup)
+	 DefaultValue   ' The default value if any
+	 FieldUserName  ' The name that the users sees on the form
+	 NullsPermited  ' Are nulls permited for this field (AllowNull) or (NoNull)
+	 NavDesc        ' The description that will show on the txtNavDesc control.
+
+	 Example:
+	 --------
+	 txtClan: Field;CL_Name;CL_Name;Alpha;NoDup;;Name;NoNull;Clan Name;
+	 
+	 txtYear: Field;CL_Year;CL_Year;Num;DupAllowed;0;Year;AllowNull;_
+	          The first year in wich this Clan can be used. Use 0 if _
+	          always available.;
+	    
+	 txtNote: Field;CL_Note;CL_Note;Alpha;DupAllowed;;Note;AllowNull;_
+	          Note on this Clan.;
+	          
